@@ -1,0 +1,356 @@
+{
+  "info": {
+    "_postman_id": "techstore-local-collection",
+    "name": "Techstore API (Local)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "# Techstore API Collection\n\nThis collection contains all endpoints for the Techstore API with example requests, responses, and automated tests.\n\n## Setup\n1. Import the environment file\n2. Set base_url to http://127.0.0.1:8000/api/techstore\n3. Start with Auth/Register or Auth/Login to get a token\n4. Tests will automatically save the token\n\n## Testing Flow\n1. Register/Login\n2. Create Customer\n3. Create Product\n4. Add to Cart\n5. Create Order\n6. Add Order Items\n7. Create Shipping"
+  },
+  "item": [
+    {
+      "name": "Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": ["/"]
+        }
+      }
+    },
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Alice Example\",\n  \"email\": \"alice+api@example.test\",\n  \"password\": \"secret123\",\n  \"password_confirmation\": \"secret123\"\n}" },
+        "url": { "raw": "{{base_url}}/register", "host": ["{{base_url}}"], "path": ["register"] }
+      }
+    },
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"alice+api@example.test\",\n  \"password\": \"secret123\"\n}" },
+        "url": { "raw": "{{base_url}}/login", "host": ["{{base_url}}"], "path": ["login"] }
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"alice+api@example.test\",\n  \"password\": \"secret123\"\n}" },
+            "url": { "raw": "{{base_url}}/login" }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [ { "key": "Content-Type", "value": "application/json" } ],
+          "cookie": [],
+          "body": "{\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"Alice Example\",\n        \"email\": \"alice+api@example.test\",\n        \"created_at\": \"2025-10-29T00:00:00.000000Z\",\n        \"updated_at\": \"2025-10-29T00:00:00.000000Z\"\n    },\n    \"token\": \"1|laravel_sanctum_token...\"\n}"
+        }
+      ],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has token\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.token).to.be.a('string');",
+              "    pm.environment.set(\"token\", jsonData.token);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth - Get User (protected)",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "{{base_url}}/user", "host": ["{{base_url}}"], "path": ["user"] }
+      }
+    },
+    {
+      "name": "Auth - Logout (protected)",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "{{base_url}}/logout", "host": ["{{base_url}}"], "path": ["logout"] }
+      }
+    },
+    {
+      "name": "Products - List",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/products", "host": ["{{base_url}}"], "path": ["products"] }
+      }
+    },
+    {
+      "name": "Products - Get by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{base_url}}/products/{{product_id}}", "host": ["{{base_url}}"], "path": ["products","{{product_id}}"] }
+      }
+    },
+    {
+      "name": "Products - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"product_code\": \"PRD-002\",\n  \"name\": \"USB-C Charger\",\n  \"description\": \"Fast charger 45W\",\n  \"price\": 29.99,\n  \"stock_quantity\": 100,\n  \"category\": \"Chargers\",\n  \"admin_id\": 1,\n  \"brand_id\": 3\n}"
+        },
+        "url": { "raw": "{{base_url}}/products", "host": ["{{base_url}}"], "path": ["products"] }
+      }
+    },
+    {
+      "name": "Products - Update (protected)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{ \"name\": \"USB-C Charger (Updated)\" }" },
+        "url": { "raw": "{{base_url}}/products/{{product_id}}", "host": ["{{base_url}}"], "path": ["products","{{product_id}}"] }
+      }
+    },
+    {
+      "name": "Products - Delete (protected)",
+      "request": {
+        "method": "DELETE",
+        "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "url": { "raw": "{{base_url}}/products/{{product_id}}", "host": ["{{base_url}}"], "path": ["products","{{product_id}}"] }
+      }
+    },
+
+    {
+      "name": "Customers - List",
+      "request": { "method": "GET", "header": [], "url": { "raw": "{{base_url}}/customers", "host": ["{{base_url}}"], "path": ["customers"] } }
+    },
+    {
+      "name": "Customers - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"customer_id\": \"CUST-1001\",\n  \"name\": \"Alice Example\",\n  \"email\": \"alice@example.test\",\n  \"phone\": \"555-0101\",\n  \"address\": \"123 Main St\",\n  \"city\": \"Metropolis\",\n  \"state\": \"State\",\n  \"zip_code\": \"12345\",\n  \"country\": \"Country\",\n  \"date_of_birth\": \"1990-01-01\",\n  \"gender\": \"female\",\n  \"status\": \"active\"\n}" },
+        "url": { "raw": "{{base_url}}/customers", "host": ["{{base_url}}"], "path": ["customers"] }
+      }
+    },
+
+    {
+      "name": "Add To Cart - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+        "body": { "mode": "raw", "raw": "{\n  \"customer_id\": \"CUST-1001\",\n  \"product_id\": 2,\n  \"quantity\": 1\n}" },
+        "url": { "raw": "{{base_url}}/add-to-cart", "host": ["{{base_url}}"], "path": ["add-to-cart"] }
+      }
+    },
+
+    {
+      "name": "Orders - List",
+      "request": { 
+        "method": "GET", 
+        "header": [], 
+        "url": { "raw": "{{base_url}}/orders", "host": ["{{base_url}}"], "path": ["orders"] } 
+      }
+    },
+    {
+      "name": "Orders - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"customer_id\": \"CUST-1001\",\n  \"product_id\": 1,\n  \"quantity\": 2,\n  \"total_price\": 59.98,\n  \"status\": \"pending\",\n  \"payment_method\": \"credit_card\",\n  \"order_date\": \"2025-10-29T10:00:00Z\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/orders", "host": ["{{base_url}}"], "path": ["orders"] }
+      }
+    },
+
+    {
+      "name": "OrderItems - List",
+      "request": { 
+        "method": "GET", 
+        "header": [], 
+        "url": { "raw": "{{base_url}}/order-items", "host": ["{{base_url}}"], "path": ["order-items"] } 
+      }
+    },
+    {
+      "name": "OrderItems - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order_id\": 1,\n  \"product_id\": 1,\n  \"quantity\": 2,\n  \"unit_price\": 29.99,\n  \"subtotal\": 59.98\n}"
+        },
+        "url": { "raw": "{{base_url}}/order-items", "host": ["{{base_url}}"], "path": ["order-items"] }
+      }
+    },
+
+    {
+      "name": "Shippings - List",
+      "request": { 
+        "method": "GET", 
+        "header": [], 
+        "url": { "raw": "{{base_url}}/shippings", "host": ["{{base_url}}"], "path": ["shippings"] } 
+      }
+    },
+    {
+      "name": "Shippings - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"order_id\": 1,\n  \"address\": \"123 Delivery St\",\n  \"city\": \"Metropolis\",\n  \"state\": \"State\",\n  \"zip_code\": \"12345\",\n  \"country\": \"USA\",\n  \"tracking_number\": \"SHIP-123456\",\n  \"shipping_status\": \"pending\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/shippings", "host": ["{{base_url}}"], "path": ["shippings"] }
+      }
+    },
+
+    {
+      "name": "Vouchers - List",
+      "request": { 
+        "method": "GET", 
+        "header": [], 
+        "url": { "raw": "{{base_url}}/vouchers", "host": ["{{base_url}}"], "path": ["vouchers"] } 
+      }
+    },
+    {
+      "name": "Vouchers - Create (protected)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"SAVE20\",\n  \"description\": \"20% off on all items\",\n  \"discount_type\": \"percentage\",\n  \"discount_value\": 20.00,\n  \"usage_limit\": 100,\n  \"usage_count\": 0,\n  \"start_date\": \"2025-10-29\",\n  \"end_date\": \"2025-12-31\",\n  \"status\": \"active\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/vouchers", "host": ["{{base_url}}"], "path": ["vouchers"] }
+      }
+    },
+    {
+      "name": "Vouchers - Update (protected)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"usage_limit\": 200,\n  \"end_date\": \"2026-12-31\",\n  \"status\": \"active\"\n}"
+        },
+        "url": { "raw": "{{base_url}}/vouchers/{{voucher_id}}", "host": ["{{base_url}}"], "path": ["vouchers", "{{voucher_id}}"] }
+      }
+    },
+    {
+      "name": "Order Completion - Mark as Completed (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{admin_token}}" },
+          { "key": "X-CSRF-TOKEN", "value": "{{csrf_token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": { "raw": "{{base_url}}/orders/{{order_id}}/complete", "host": ["{{base_url}}"], "path": ["orders", "{{order_id}}", "complete"] },
+        "description": "Mark an order as completed. Requires admin authentication. Records completed_at timestamp and admin_id."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 (successful completion)\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has success flag\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.success).to.equal(true);",
+              "});",
+              "",
+              "pm.test(\"Order status is completed\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.order.status).to.equal('completed');",
+              "});",
+              "",
+              "pm.test(\"Completion timestamp is recorded\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.order.completed_at).to.exist;",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Completion - Get Status",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": { "raw": "{{base_url}}/orders/{{order_id}}/completion-status", "host": ["{{base_url}}"], "path": ["orders", "{{order_id}}", "completion-status"] },
+        "description": "Get the completion status and details for an order. Shows completed_at, admin_id, and admin info."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response has completion details\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.completion_details).to.exist;",
+              "    pm.expect(jsonData.is_completed).to.be.a('boolean');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

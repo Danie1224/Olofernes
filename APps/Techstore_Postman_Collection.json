@@ -1,0 +1,1263 @@
+{
+  "info": {
+    "_postman_id": "techstore-api-collection",
+    "name": "TechStore API Collection",
+    "description": "Complete API testing collection for TechStore e-commerce application",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.test\",\n    \"password\": \"secret123\",\n    \"password_confirmation\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"john@example.test\",\n    \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Register Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Admin User\",\n    \"email\": \"admin@example.test\",\n    \"password\": \"secret123\",\n    \"password_confirmation\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/register-admin",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "register-admin"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@example.test\",\n    \"password\": \"secret123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin-login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin-login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/get-user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "get-user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List Customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/customers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Customer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/customers/{{customer_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers",
+                "{{customer_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customer_id\": \"CUST-001\",\n    \"name\": \"Jane Smith\",\n    \"email\": \"jane@example.test\",\n    \"phone\": \"555-1234\",\n    \"address\": \"123 Main St\",\n    \"city\": \"Metropolis\",\n    \"state\": \"State\",\n    \"zip_code\": \"12345\",\n    \"country\": \"USA\",\n    \"date_of_birth\": \"1990-01-01\",\n    \"gender\": \"female\",\n    \"status\": \"active\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/customers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Jane Smith Updated\",\n    \"phone\": \"555-5678\",\n    \"address\": \"456 Oak Ave\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/customers/{{customer_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers",
+                "{{customer_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Customer",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/customers/{{customer_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers",
+                "{{customer_id}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products/{{product_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "{{product_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"product_code\": \"PRD-001\",\n    \"name\": \"Wireless Mouse\",\n    \"description\": \"High precision wireless mouse\",\n    \"price\": 29.99,\n    \"stock_quantity\": 100,\n    \"category\": \"Accessory\",\n    \"admin_id\": 1,\n    \"brand_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Wireless Mouse Pro\",\n    \"price\": 39.99,\n    \"stock_quantity\": 95\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products/{{product_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "{{product_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products/{{product_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "{{product_id}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "List Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customer_id\": \"796570a1-387a-4dde-a530-a3d73364a288\",\n    \"product_id\": 1,\n    \"admin_id\": 1,\n    \"quantity\": 2,\n    \"total_price\": 4999.98,\n    \"payment_method\": \"cash\",\n    \"status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"processing\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/cancel",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "cancel"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Complete Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/orders/{{order_id}}/complete",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "{{order_id}}",
+                "complete"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Order Items",
+      "item": [
+        {
+          "name": "List Order Items",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/order-items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "order-items"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Order Item",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/order-items/{{order_item_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "order-items",
+                "{{order_item_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Order Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"order_id\": 1,\n    \"product_id\": 2,\n    \"quantity\": 3,\n    \"unit_price\": 29.99,\n    \"subtotal\": 89.97\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/order-items",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "order-items"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Order Item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"quantity\": 5,\n    \"subtotal\": 149.95\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/order-items/{{order_item_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "order-items",
+                "{{order_item_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Order Item",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/order-items/{{order_item_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "order-items",
+                "{{order_item_id}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipping",
+      "item": [
+        {
+          "name": "List Shipping",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shippings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shippings"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Shipping",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shippings/{{shipping_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shippings",
+                "{{shipping_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Shipping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"order_id\": 1,\n    \"address\": \"123 Delivery St\",\n    \"city\": \"Metropolis\",\n    \"state\": \"State\",\n    \"zip_code\": \"12345\",\n    \"country\": \"USA\",\n    \"tracking_number\": \"SHIP-123456\",\n    \"shipping_status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/shippings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shippings"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Shipping",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"shipping_status\": \"shipped\",\n    \"tracking_number\": \"SHIP-789012\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/shippings/{{shipping_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shippings",
+                "{{shipping_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Shipping",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shippings/{{shipping_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shippings",
+                "{{shipping_id}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vouchers",
+      "item": [
+        {
+          "name": "List Vouchers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/vouchers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "vouchers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Voucher",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/vouchers/{{voucher_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "vouchers",
+                "{{voucher_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Voucher",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"code\": \"SAVE20\",\n    \"description\": \"20% off on all items\",\n    \"discount_type\": \"percentage\",\n    \"discount_value\": 20.00,\n    \"usage_limit\": 100,\n    \"start_date\": \"2025-12-22\",\n    \"end_date\": \"2025-12-31\",\n    \"status\": \"active\",\n    \"admin_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/vouchers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "vouchers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Voucher",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"inactive\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/vouchers/{{voucher_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "vouchers",
+                "{{voucher_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Voucher",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/vouchers/{{voucher_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "vouchers",
+                "{{voucher_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User Vouchers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/vouchers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "vouchers"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Claim Voucher",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"voucher_code\": \"SAVE20\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/vouchers/claim",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "vouchers",
+                "claim"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Return Requests",
+      "item": [
+        {
+          "name": "List Return Requests",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/return-requests",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "return-requests"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Return Request",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/return-requests/{{request_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "return-requests",
+                "{{request_id}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Return Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"order_id\": 1,\n    \"customer_id\": \"796570a1-387a-4dde-a530-a3d73364a288\",\n    \"product_id\": 1,\n    \"reason\": \"Product arrived damaged\",\n    \"status\": \"pending\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/return-requests",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "return-requests"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Approve Return Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/return-requests/{{request_id}}/approve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "return-requests",
+                "{{request_id}}",
+                "approve"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reject Return Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/return-requests/{{request_id}}/reject",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "return-requests",
+                "{{request_id}}",
+                "reject"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Process Refund",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/return-requests/{{request_id}}/refund",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "return-requests",
+                "{{request_id}}",
+                "refund"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cart & Checkout",
+      "item": [
+        {
+          "name": "Add to Cart",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customer_id\": \"796570a1-387a-4dde-a530-a3d73364a288\",\n    \"product_id\": 2,\n    \"quantity\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/add-to-cart",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "add-to-cart"
+              ]
+            }
+          }
+        },
+        {
+          "name": "List Cart Items",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/add-to-cart",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "add-to-cart"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"customer_id\": \"796570a1-387a-4dde-a530-a3d73364a288\",\n    \"items\": [\n        {\n            \"product_id\": 1,\n            \"quantity\": 2,\n            \"price\": 2499.99\n        }\n    ],\n    \"total_price\": 4999.98,\n    \"payment_method\": \"card\",\n    \"shipping_address\": \"123 Main St\",\n    \"shipping_city\": \"Metropolis\",\n    \"shipping_state\": \"State\",\n    \"shipping_zip\": \"12345\",\n    \"shipping_country\": \"USA\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/checkout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "checkout"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
